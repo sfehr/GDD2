@@ -1,0 +1,31 @@
+/* CSS Document */
+
+* {
+	margin:0;
+	padding:0;
+}
+
+body {
+	padding:80px;
+}
+
+body,h1,p,li {
+	font-family: 'Istok Web', sans-serif;
+	font-size:32px;
+	font-weight:bold;
+	line-height:1.2;
+}
+
+ul {
+	margin:16px 0 0;
+	list-style:none;
+}
+
+li {
+	font-size:16px;
+	font-weight:normal;
+}
+
+a {
+	color:#000000;
+}
