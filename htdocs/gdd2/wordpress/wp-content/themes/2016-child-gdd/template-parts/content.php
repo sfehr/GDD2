@@ -38,7 +38,7 @@
 		
 				
 			/* translators: %s: Name of current post */
-			 echo twentysixteen_child_wp_trim_words( get_the_content(), 500, ' ...' );
+			 echo strip_shortcodes( twentysixteen_child_wp_trim_words( get_the_content(), 500, ' ...' ) );
 			 echo '<br /><span class="translation">' . twentysixteen_child_wp_trim_words( twentysixteen_child_gdd_translation(), 300, ' ...' ) . '</span>';		
 	
 			// echo get_excerpt(140, 'content'); //excerpt is grabbed from get_the_content
