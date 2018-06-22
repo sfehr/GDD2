@@ -21,15 +21,11 @@
     if( class_exists('Dynamic_Featured_Image') ) {
          global $dynamic_featured_image;
          $featured_images = $dynamic_featured_image -> get_featured_images( get_the_ID() );
-         $title = $dynamic_featured_image -> get_image_title_by_id( $attachement_id ); 
-    
+		
         //You can now loop through the image to display them as required
-        //For example
         foreach( $featured_images as $image ) {
-           // echo "<a href='{$image['full']}'>";
-           
-                echo "<div class='post-thumbnail'><img src='{$image['full']}' alt='$title' /></div>";
-           // echo "</a>";
+			
+			echo '<div class="post-thumbnail">' . sf_create_responsive_image( $image['full'] ) . '</div>';
         }
      }
      ?>

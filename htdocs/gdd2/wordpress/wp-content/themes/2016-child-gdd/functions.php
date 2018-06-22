@@ -302,3 +302,12 @@ function twentysixteen_child_wp_trim_words( $text, $num_words = 55, $more = null
     return apply_filters( 'twentysixteen_child_wp_trim_words', $text, $num_words, $more, $original_text );
 }
 
+// responsive img tags (for dynamic featured img)
+function sf_create_responsive_image( $img ) {
+	$img_id = attachment_url_to_postid( $img );
+	$img_meta = wp_get_attachment_metadata( $img_id );
+	$img_srcset = wp_get_attachment_image_srcset( $img_id, 'full', $img_meta);
+	$img_sizes = wp_get_attachment_image_sizes( $img_id, '', $img_meta);
+	return '<img src="' . $img . '" srcset="' . esc_attr( $img_srcset ) . '" sizes="' . esc_attr( $img_sizes ) . '">';
+}
+add_action('sf_responsive_img', 'sf_create_responsive_image');
