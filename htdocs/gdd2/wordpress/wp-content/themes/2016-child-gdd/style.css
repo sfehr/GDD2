@@ -461,6 +461,162 @@ Image Gallery Styling
 
 /* -------------------------------- 
 
+Lightbox for WP native image gallery
+
+-------------------------------- */
+
+.gallery-item{
+	padding: 0px;
+	top: 0px;
+	left: 0px;
+	display: inline-flex!important;
+	margin-bottom: 4px;
+}
+
+
+.gallery-icon img{
+	width: 350px;
+	max-width: 350px;
+}
+
+.gallery-icon:hover{
+	cursor: pointer;
+}
+
+.gallery-caption{
+	width: auto;
+	max-width: 250px;
+	margin-top: -5px;
+	margin-left: 5px;
+	text-align: left;
+	line-height: 120%;
+	font-style: normal;
+	color: black;
+}
+
+.lightbox-container{
+	z-index: 99;
+	background-color: rgba(0,0,0,0.75)
+}
+
+.lightbox-container,
+.lightbox-slide
+{
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+}
+
+.lightbox-slide{
+	margin: 26px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+.lightbox-container img{	
+	max-height: 100%;
+/*    max-width: 100%; */
+}
+
+.invisible{
+	opacity: 0;
+	display: none;
+}
+
+.btn-left, 
+.btn-right{	
+	background:none;
+	background-image: url("img/next_prev_arrows.svg");
+	background-repeat: no-repeat;
+	-webkit-filter: invert(100%);
+	filter: invert(100%);
+  width: 40px;
+	height: 40px;
+}
+
+.btn-close{
+	display: block;
+	position: fixed;
+	top:12px;
+	right: 13px;	
+	background: none;
+	background-image: url("img/close-menu.svg");
+	background-repeat: no-repeat;
+	-webkit-filter: invert(100%);
+	filter: invert(100%);
+	width: 43px;
+	height: 43px;
+}
+
+button.btn-left{
+	position: fixed;
+	top: 50%;
+	left: 10px;
+  -ms-transform: rotate(180deg); 
+  -webkit-transform: rotate(180deg); 
+  transform: rotate(180deg);	
+}
+
+button.btn-right{
+	position: fixed;
+	top: 50%;
+	right: 10px;
+}
+
+.btn-close:hover{
+	background: url("img/close-menu.svg");
+	background-repeat: no-repeat;
+}
+
+.btn-left:hover, 
+.btn-right:hover{
+	background: url("img/next_prev_arrows.svg");
+	background-repeat: no-repeat;
+}
+
+.btn-left:hover{
+  -ms-transform: rotate(180deg) translateX(5px)!important;
+  -webkit-transform: rotate(180deg) translateX(5px)!important; 
+  transform: rotate(180deg) translateX(5px)!important;	
+}
+
+.btn-right:hover{
+  -ms-transform: translateX(5px); 
+  -webkit-transform: translateX(5px); 
+  transform: translateX(5px); 
+}
+
+.btn-close:hover{
+  -ms-transform: translateY(-5px); 
+  -webkit-transform: translateY(-5px); 
+  transform: translateY(-5px); 
+}
+
+.pulsuate-left {
+  -ms-transform: rotate(180deg) translateX(5px)!important;
+  -webkit-transform: rotate(180deg) translateX(5px)!important; 
+  transform: rotate(180deg) translateX(5px)!important;	
+}
+
+.pulsuate-right {
+  -ms-transform: translateX(5px); 
+  -webkit-transform: translateX(5px); 
+  transform: translateX(5px); 
+}
+
+.pulsuate-esc {
+  -ms-transform: translateY(-5px); 
+  -webkit-transform: translateY(-5px); 
+  transform: translateY(-5px); 
+}
+
+
+/* -------------------------------- 
+
 Media Queries 
 
 -------------------------------- */
@@ -604,8 +760,41 @@ Media Queries
 	.entry-title,
 	.entry-content h1{
 		font-size:20px;
-	}	
-		
+	}
+	
+	.gallery-item{
+		display:inline-block !important;
+    	flex-wrap: wrap!important;
+		width: 100%!important;
+		max-width: 100%!important;
+	}
+
+	.gallery-icon{
+		width: 100%!important;
+		max-width: 333px!important;
+	}
+
+	.gallery-icon img{
+		width: 100%!important;
+		max-width: 100%!important;
+	}
+
+	.gallery-caption{
+		margin-left:0px !important;
+	}
+	
+	button.btn-right{
+		right: 0px;
+	}
+	
+	button.btn-left{
+		left: 0px;
+	}
+	
+	button.btn-close{
+		right: 0px;
+	}		
+	
 }
 
 /**
@@ -746,7 +935,40 @@ Media Queries
 	.entry-title,
 	.entry-content h1{
 		font-size:20px;
-	}	
+	}
+	
+	.gallery-item{
+		display:inline-block !important;
+    	flex-wrap: wrap!important;
+		width: 100%!important;
+		max-width: 100%!important;
+	}
+
+	.gallery-icon{
+		width: 100%!important;
+		max-width: 333px!important;
+	}
+
+	.gallery-icon img{
+		width: 100%!important;
+		max-width: 100%!important;
+	}
+
+	.gallery-caption{
+		margin-left:0px !important;
+	}
+	
+	button.btn-right{
+		right: 0px;
+	}
+	
+	button.btn-left{
+		left: 0px;
+	}
+	
+	button.btn-close{
+		right: 0px;
+	}		
 		
 }
 
@@ -1116,57 +1338,3 @@ Media Queries
 	/*	background-color: lightyellow; */
 	}				
 }
-
-
-/* sidr links style */
-/*
-.sidr-left-link {
-display: block;
-background: #ffffff;
-position: absolute;
-top: 30px;
-left: 20px;
-padding: 10px;
-border: 2px solid #000000;
-color: #000000;
-font-weight: bold;
-}
-
-.sidr-right-link {
-display: block;
-background: #ffffff;
-position: absolute;
-top: 30px;
-right: 20px;
-padding: 10px;
-border: 2px solid #000000;
-color: #000000;
-font-weight: bold;
-}
-
-.sidr{
-	box-shadow: none;
-	background-color: white;
-	width: 33%;
-	border: 1px solid black;
-}
-
-.sidr .menu a{
-	color: black;
-	font-size: 20px;
-	font-weight:300;
-	text-transform:uppercase;
-	letter-spacing: 0.5px;
-	line-height: 160%;
-	margin: 0px;
-	padding: 0px
-}
-
-.sidr .menu a:hover{
-	box-shadow: none;
-}
-
-.sidr ul li, .sidr ul{
-	border: none;
-}
-*/

@@ -2,7 +2,7 @@
 
 // Top Anchor Function
 function twentysixteen_child_gdd_scripts() {
-	wp_enqueue_script( 'top anchor js', get_stylesheet_directory_uri() . '/js/top-anchor.js' );
+	wp_enqueue_script( 'top anchor js', get_stylesheet_directory_uri() . '/js/top-anchor.js', array('jquery'), true );
 }
 
 add_action( 'wp_enqueue_scripts', 'twentysixteen_child_gdd_scripts' );
@@ -129,6 +129,22 @@ function add_isotope() {
 }
 
 add_action( 'wp_enqueue_scripts', 'add_isotope' );
+
+
+// add SF Lightbox/Slideshow for native WP Gallery
+
+function add_lightbox() {
+	// init-js
+	wp_enqueue_script( 'slick-init', get_stylesheet_directory_uri() . '/js/lightbox-init.js', array('jquery'), '', true );
+	
+	//Hammer JS (for swiping gestures)
+//	wp_enqueue_script( 'hammer-js', get_stylesheet_directory_uri() . '/js/hammer.js', array(), '', true );
+	
+	//Hammer JS (jquery plugin)
+//	wp_enqueue_script( 'hammer-jquery-js', get_stylesheet_directory_uri() . '/js/jquery-hammer.js', array('jquery'), '', true );
+
+}
+add_action( 'wp_enqueue_scripts', 'add_lightbox' );
 
 
 // read more link
