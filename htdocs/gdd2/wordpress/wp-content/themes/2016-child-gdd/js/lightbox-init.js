@@ -15,11 +15,31 @@ jQuery(function($) {
 		};
 	}
 	
-	// INITIALIZER
-	$('.gallery .gallery-icon img').on('click', function() {
+
+	// INITIALIZER ON LOAD
+	$( document ).on('ready', function() {
+		
+		var gallery_images = $('.wp-block-gallery').find('.blocks-gallery-item img');
+		
+		// hide the images
+		gallery_images.each(function( index ) {
+			
+			if ( index > 0 ){
+				
+				$( this ).addClass( 'invisible' );
+				
+			}
+			
+		});		
+		
+	});		
+
+	
+	// INITIALIZER LIGHT BOX (ON CLICK)
+	$('.wp-block-gallery .blocks-gallery-item img').on('click', function() {
 		
 		//find all images in the gallery
-		var gallery_images = $('.gallery').find('.gallery-icon img');
+		var gallery_images = $('.wp-block-gallery').find('.blocks-gallery-item img');
 		
 		//get src of clicked image
 		var current_img_src = $(this).attr('src');
@@ -51,6 +71,39 @@ jQuery(function($) {
 			
 		//call index handler
 		index_handler(current_image_index);
+		
+/*		
+		// SWIPE GESTURE FOR MOBILE
+
+		// Get a reference to an element
+		var light_box = document.querySelector( '.lightbox-container' );
+
+		// Create a manager to manager the element
+		var manager = new Hammer.Manager(light_box);
+
+		// Create a recognizer
+		var Swipe = new Hammer.Swipe();
+
+		// Add the recognizer to the manager
+		manager.add(Swipe);
+
+		// Declare global variables to swiped correct distance
+		var deltaX = 0;
+		var deltaY = 0;
+
+		// Subscribe to a desired event
+		manager.on('swipe', function(e) {
+		  deltaX = deltaX + e.deltaX;
+		  var direction = e.offsetDirection;
+		  var translate3d = 'translate3d(' + deltaX + 'px, 0, 0)';
+
+		  if (direction === 4 || direction === 2) {
+			e.target.innerText = deltaX;
+			e.target.style.transform = translate3d;
+		  }
+		});		
+*/
+		
 	});	
 	
 	
@@ -112,13 +165,7 @@ jQuery(function($) {
 	
 	
 	//SLIDE BG EVENT LISTENER
-/*	
-	$('body').on('click', function(e) {
-		if ( $(e.target).has('.lightbox-slide img').length ) {
-			close_all();
-		}
-	});
-*/	
+	
 	
 	//KEY EVENT LISTENER
 	$('body').on('keydown', '', function(e) {	
@@ -154,37 +201,6 @@ jQuery(function($) {
 			close_all();
 		}		
 	});
-	
-	
-	// SWIPE GESTURES
-	// create a simple instance
-//	var mc = new Hammer( slides[0] );
-//	Hammer(slides[0]).on('swipeleft', function(ev){
-/*	
-	$('.lightbox-slide').hammer().on('swipeleft', function(ev) {
-		console.log('left: ', ev);
-	});
-/*	
-	var slides = $('.lightbox-slide');
-	slides.hammer().on("swipeleft", function(ev) {
-		console.log('left: ', ev);
-	});
-		
-
-	// listen to events...
-	mc.on("swipeleft swiperight", function(ev) {
-		
-		console.log("GESTURE detected: " + ev);
-		
-		if (ev.type === "swipeleft"){		
-			index_handler(current_image_index, 1);
-		}
-		if (ev.type === "swiperight"){		
-			index_handler(current_image_index, -1);
-		}
-		
-	});
-*/
 	
 	
 });	// END SKRIPT

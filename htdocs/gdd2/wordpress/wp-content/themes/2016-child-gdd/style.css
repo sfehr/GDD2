@@ -465,7 +465,12 @@ Lightbox for WP native image gallery
 
 -------------------------------- */
 
-.gallery-item{
+.wp-block-gallery{
+	width: 50%;
+}
+
+
+.blocks-gallery-item{
 	padding: 0px;
 	top: 0px;
 	left: 0px;
@@ -523,19 +528,21 @@ Lightbox for WP native image gallery
 }
 
 .invisible{
-	opacity: 0;
-	display: none;
+	display: none!important;
 }
 
 .btn-left, 
-.btn-right{	
+.btn-right{
+	position: fixed;	
 	background:none;
 	background-image: url("img/next_prev_arrows.svg");
+	background-size: 40px;
 	background-repeat: no-repeat;
+	background-position: 100%;
 	-webkit-filter: invert(100%);
 	filter: invert(100%);
-  width: 40px;
-	height: 40px;
+  width: 40%;
+	height: 100%;
 }
 
 .btn-close{
@@ -552,18 +559,14 @@ Lightbox for WP native image gallery
 	height: 43px;
 }
 
-button.btn-left{
-	position: fixed;
-	top: 50%;
+.btn-left{
 	left: 10px;
   -ms-transform: rotate(180deg); 
   -webkit-transform: rotate(180deg); 
   transform: rotate(180deg);	
 }
 
-button.btn-right{
-	position: fixed;
-	top: 50%;
+.btn-right{
 	right: 10px;
 }
 
@@ -576,6 +579,8 @@ button.btn-right{
 .btn-right:hover{
 	background: url("img/next_prev_arrows.svg");
 	background-repeat: no-repeat;
+	background-size: 40px;
+	background-position: 100%;
 }
 
 .btn-left:hover{
@@ -762,7 +767,7 @@ Media Queries
 		font-size:20px;
 	}
 	
-	.gallery-item{
+	.blocks-gallery-item{
 		display:inline-block !important;
     	flex-wrap: wrap!important;
 		width: 100%!important;
@@ -936,14 +941,14 @@ Media Queries
 	.entry-content h1{
 		font-size:20px;
 	}
-	
-	.gallery-item{
+/*	
+	.blocks-gallery-item{
 		display:inline-block !important;
     	flex-wrap: wrap!important;
 		width: 100%!important;
 		max-width: 100%!important;
 	}
-
+*/
 	.gallery-icon{
 		width: 100%!important;
 		max-width: 333px!important;
