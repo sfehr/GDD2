@@ -1,8 +1,12 @@
 jQuery(document).ready(function ($) {
 
+	$(window).load(function(){
+
 	var $container = $('#isotope-list'); //The ID for the list with all the blog posts	
 	
-	$container.imagesLoaded(function(){
+	
+	
+	$container.imagesLoaded().progress( function(){
 	
 		$container.isotope({ //Isotope options, 'item' matches the class in the PHP
 			itemSelector : '.item', 
@@ -14,8 +18,10 @@ jQuery(document).ready(function ($) {
 				gutter: '.gutter-sizer'
 			}		
 		}).resize(); // make sure there is no overlapping (imagesLoaded function)
-		
+//		console.log('load');
 	});
+		
+	
 
 	//Add the class selected to the item that is clicked, and remove from the others
 	var $optionSets = $('#main'),
@@ -64,9 +70,11 @@ jQuery(document).ready(function ($) {
 				scrollTop: 0 ,
 				}, 200
 		);		
-		console.log("srolled to top");
+
 		return false;
 	}    
 	//return false;
 	});	
+		
+	});		
 });

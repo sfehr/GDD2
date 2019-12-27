@@ -1,0 +1,10 @@
+/* Stylesheet for Japanese Language */
+
+
+
+.ja{
+	font-weight: 600;
+	letter-spacing: normal;
+	font-variant-east-asian: proportional-width;
+	text-justify: distribute;
+}

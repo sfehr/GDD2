@@ -1,0 +1,11 @@
+/* Stylesheet for Japanese Language */
+
+
+
+
+.entry-content
+{
+	text-align: justify;
+	font-variant-east-asian: proportional-width;
+	text-justify: distribute;
+}

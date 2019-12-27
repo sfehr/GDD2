@@ -2,6 +2,8 @@ jQuery(function($) {
 	
 	var images = [];
 	var current_image_index;
+	var selector_container = '.wp-block-gallery, .gdd-image-container';
+	var selector_image = '.blocks-gallery-item img, .gdd-image img';
 	
 	
 	//OBJECT COSTRUCTOR
@@ -19,7 +21,7 @@ jQuery(function($) {
 	// INITIALIZER ON LOAD
 	$( document ).on('ready', function() {
 		
-		var gallery_images = $('.wp-block-gallery').find('.blocks-gallery-item img');
+		var gallery_images = $( selector_container ).find( selector_image );
 		
 		// hide the images
 		gallery_images.each(function( index ) {
@@ -36,10 +38,10 @@ jQuery(function($) {
 
 	
 	// INITIALIZER LIGHT BOX (ON CLICK)
-	$('.wp-block-gallery .blocks-gallery-item img').on('click', function() {
+	$( selector_image ).on('click', function() {
 		
 		//find all images in the gallery
-		var gallery_images = $('.wp-block-gallery').find('.blocks-gallery-item img');
+		var gallery_images = $( selector_container ).find( selector_image );
 		
 		//get src of clicked image
 		var current_img_src = $(this).attr('src');
@@ -50,7 +52,7 @@ jQuery(function($) {
 			images[index] = new Image( $( this ).attr('src'), $( this ).attr('srcset'), $( this ).attr('sizes') );
 
 			// get the index of the clicked image
-			if( current_img_src == $( this ).attr('src')){
+			if( current_img_src === $( this ).attr('src')){
 				
 				current_image_index = index;
 				

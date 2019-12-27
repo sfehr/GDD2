@@ -19,6 +19,7 @@
 Font loading
 
 -------------------------------- */
+
 @font-face {
 	font-family:'__Linotype Univers_5';
 	src:url('fonts/linotypeunivers-430regular.eot');
@@ -47,6 +48,7 @@ Font loading
 	font-weight:300;
 	font-style:normal;
 }
+
 
 /* Get rid of the black bars of the twentysixteen theme */
 body:not(.custom-background-image):before, body:not(.custom-background-image):after {
@@ -113,9 +115,10 @@ a,
 .pingback .comment-body > a,
 .textwidget a,
 .entry-footer a:hover,
-.site-info a:hover {
+.site-info a:hover 
+{
 	color: black;
-	box-shadow: 0 0px 0 0 currentColor;
+	box-shadow: 0 0px 0 0 black;
 }
 
 a:hover,
@@ -137,7 +140,9 @@ a.post-thumbnail:focus {
 .item>a:hover,
 .entry-title a:hover,
 .entry-title a:focus,
-.site-info p a:hover {
+.site-info p a:hover,
+.language-switcher a:hover
+{
 	border-bottom: 1px solid black;
 	padding-bottom: 2px;
 }
@@ -180,6 +185,7 @@ Header Image
   position: absolute;
   top: -4px;
   left: 36px;
+	z-index: 6;
 }
 
 .header-image a{
@@ -238,6 +244,10 @@ Navigation
 	color: black;
 	border-bottom: 1px solid black;
 	outline: none;
+}
+
+.site-header-menu.toggled-on{
+	z-index: 7;
 }
 
 /* -------------------------------- 
@@ -305,6 +315,14 @@ Footer & Anchor
 	left: 40px;
 	bottom: 18px;
 	line-height: 9px;
+}
+
+.language-switcher{
+	position: absolute;
+	display: flex;
+	bottom: 2.5px;
+	left: 176px;
+	list-style: none;
 }
 
 .top-anchor{
@@ -380,6 +398,7 @@ Masonry: Makes three columns
 
 .item{
 	margin-bottom: 74px;
+	display: block;
 }
 
 .gutter-sizer { 
@@ -396,68 +415,6 @@ Translation Styling
 	font-size: 85%;
 }
 
-/* -------------------------------- 
-
-Image Gallery Styling
-
--------------------------------- */
-
-.swipebox{
-	position: relative;
-}
-
-.swipebox .title{
-  font-size: 12px;
-}
-
-.swipebox img{
-	width: 55%;
-	margin-bottom: -1px;
-}
-
-#swipebox-top-bar{
-	visibility: hidden;
-}
-
-#swipebox-bottom-bar{
-	height:100%;
-	width: 100%;
-	background: none;
-}
-
-#swipebox-close{
-	position: fixed;
-	top:12px;
-	right: 12px;	
-	background:none;
-	background-image: url("img/close-menu.svg") !important;
-	background-repeat: no-repeat;
-	-webkit-filter: invert(100%);
-	filter: invert(100%);
-}
-
-#swipebox-prev, #swipebox-next{	
-	background:none;
-	background-image: url("img/next_prev_arrows.svg") !important;
-	background-repeat: no-repeat;
-	-webkit-filter: invert(100%);
-	filter: invert(100%);	
-}
-
-#swipebox-prev{
-	position: fixed;
-	top: 50%;
-	left: 0px;
-  -ms-transform: rotate(180deg); 
-  -webkit-transform: rotate(180deg); 
-  transform: rotate(180deg);	
-}
-
-#swipebox-next{
-	position: fixed;
-	top: 50%;
-	right: 0px;
-}
 
 /* -------------------------------- 
 
@@ -467,6 +424,7 @@ Lightbox for WP native image gallery
 
 .wp-block-gallery{
 	width: 50%;
+	cursor: pointer;
 }
 
 
@@ -620,6 +578,27 @@ Lightbox for WP native image gallery
 }
 
 
+/*--------------------------------------------------------------
+# Lazyloading
+--------------------------------------------------------------*/
+
+img[data-lazy-src]{
+	-webkit-transition: opacity 500ms ease-in-out;
+	-moz-transition: opacity 500ms ease-in-out;
+	-o-transition: opacity 500ms ease-in-out;
+	transition: opacity 500ms ease-in-out;
+	max-width: 100%;
+	opacity: 0;
+}
+
+img.loaded,
+img.lazyloaded,
+img.lazy-loaded
+{
+	opacity: 1;
+}
+
+
 /* -------------------------------- 
 
 Media Queries 
@@ -662,7 +641,9 @@ Media Queries
 		padding-right: 15px;
 	}
 	
-	.entry-content a, .entry-title a{
+	.entry-content a, 
+	.entry-title a
+	{
 		font-size: 20px;
 		line-height: 140%;
 	}
@@ -680,6 +661,13 @@ Media Queries
 	.grid-sizer {
 		width: 100%;
 	}
+	
+/*	 image overlap bug fix for mobile sites (overruling JS) 
+	.item{
+		position: relative !important;
+		top: unset !important;
+	}	
+*/
 	
 	.site-header-menu{
 		top: 0px;
@@ -845,12 +833,18 @@ Media Queries
 	
 	.item > a{
 		font-size: 12px;
-	}			
+	}
 	
 	.top-anchor{
 	bottom: 74px;
 	}
-
+	
+/* image overlap bug fix for mobile sites (overruling JS) 
+	.item{
+		position: relative !important;
+		top: unset !important;
+	}
+*/	
 	
 	.item,
 	.grid-sizer {

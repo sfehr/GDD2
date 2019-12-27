@@ -54,9 +54,12 @@
 	<div class="entry-content">
 		<?php
 			/* Content of the post */
-			the_content();
+			wp_make_content_images_responsive( the_content() );
 			/* Translation of the post */
-			echo '<span class="translation">' . twentysixteen_child_gdd_translation() . '</span>';	
+//			echo '<span class="translation">' . twentysixteen_child_gdd_translation() . '</span>';	
+		
+			// CMB2 Images
+			gdd_get_gallery_images( 'filelist', 'gdd-image', 'large');
 
 			wp_link_pages( array(
 				'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentysixteen' ) . '</span>',

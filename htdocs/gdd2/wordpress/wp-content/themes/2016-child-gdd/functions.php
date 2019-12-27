@@ -1,8 +1,34 @@
 <?php 
 
+/*
+*
+* twentysixteen_child_gdd_scripts
+* Multiple Featured Image
+* Load CMB2 functions
+* twentysixteen_child_gdd_entry_meta
+* twentysixteen_child_gdd_entry_taxonomies
+* add_isotope
+* add_lightbox
+* register_foundation_style (css)
+* twentysixteen_child_gdd_translation
+* twentysixteen_child_wp_trim_words
+* twentysixteen_child_gdd_wp_custom_query
+* deactivate_rocket_lazyload_on_single
+* rocket_lazyload_custom_threshold
+* Get Custom Field Values: File List
+*
+*/
+
+
+
 // Top Anchor Function
 function twentysixteen_child_gdd_scripts() {
-	wp_enqueue_script( 'top anchor js', get_stylesheet_directory_uri() . '/js/top-anchor.js', array('jquery'), true );
+	
+	//SF: load pace.js for page loading progress UI (in Header)
+	wp_enqueue_script( 'page-loading-ui-js', get_stylesheet_directory_uri() . '/js/pace.js', array(), '', false );
+	wp_enqueue_style( 'page-loading-ui-css', get_stylesheet_directory_uri() . '/css/page-loading-ui.css' );	
+	
+	wp_enqueue_script( 'top-anchor-js', get_stylesheet_directory_uri() . '/js/top-anchor.js', array('jquery'), true );
 }
 
 add_action( 'wp_enqueue_scripts', 'twentysixteen_child_gdd_scripts' );
@@ -36,6 +62,12 @@ add_filter( 'kdmfi_featured_images', function( $featured_images ) {
     return $featured_images;
 });
 
+
+
+/** SF:
+ * Load CMB2 functions
+ */
+require_once( dirname(__FILE__) . '/inc/gdd-cmb2-functions.php');
 
 
 
@@ -148,33 +180,6 @@ function add_lightbox() {
 
 }
 add_action( 'wp_enqueue_scripts', 'add_lightbox' );
-
-
-// read more link
-/**
- * Display post content with "more" link when applicable
- *
- * @since Tiny Framework 2.0.1
- 
-function tinyframework_post_content() {
-	// translators: %s: Name of current post 
-	the_excerpt( sprintf(
-		__( 'hugo...<span class="screen-reader-text"> "%s"</span>', 'tinyframework' ),
-		get_the_title()
-	) );
-}
-
-
-add_action( 'wp_enqueue_scripts', 'tinyframework_post_content' );
-*/
-
-// Limiting the exceprt length
-/*
-function custom_excerpt_length( $length ) {
-        return 20;
-    }
-add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
-*/	
 	
 
 
@@ -189,52 +194,6 @@ function register_foundation_style() {
   }
 }
 add_action( 'wp_enqueue_scripts', 'register_foundation_style' );
-
-
-
-
-// Sidr Slide In/Out Menu for mobile devices
-function sidr_footer() {
-
-// output the static html for the side menus
-
-echo ' <div id="sidr-left"> ';
-wp_nav_menu( array( 'theme_location' => 'primary' ) );
-echo ' </div> ';
-
-
-/* output the two links */
-
-echo ' <a href="#sidr-left" class="sidr-left-link">LEFT</a>
-<a href="#sidr-right" class="sidr-right-link">RIGHT</a>';
-
-
-/* hook up the Sidr functionality */
-
-echo '
-<script language="javascript">
-
-jQuery(document).ready(function($){
-// hook up the left side menu
-
-$(".sidr-left-link").sidr({
-name: "sidr-left",
-side: "left"
-});
-
-// hook up the right side menu
-$(".sidr-right-link").sidr({
-name: "sidr-right",
-side: "right"
-});
-
-});
-
-</script>';
-
-}
-
-// add_action( 'wp_footer' , 'sidr_footer' );
 
 
 function twentysixteen_child_gdd_translation() {
@@ -252,30 +211,6 @@ add_action( 'wp_enqueue_scripts', 'twentysixteen_child_gdd_translation' );
 
 
 //Limiting excerpt by character instead of words count
-
-/*
-function get_excerpt($limit, $source = null){
-
-//    if($source == "content" ? ($excerpt = get_the_content()) : ($excerpt = get_the_excerpt()));
-	if($source == "content"){
-		$excerpt = get_the_content();	
-	}
-	else if ($source == "translation"){
-		$excerpt = twentysixteen_child_gdd_translation();
-	}
-	else{
-		get_the_excerpt();
-	}
-    $excerpt = preg_replace(" (\[.*?\])",'',$excerpt);
-    $excerpt = strip_shortcodes($excerpt);
-    $excerpt = strip_tags($excerpt);
-    $excerpt = substr($excerpt, 0, $limit);
-    $excerpt = substr($excerpt, 0, strripos($excerpt, " "));
-    $excerpt = trim(preg_replace( '/\s+/', ' ', $excerpt));
-    $excerpt = $excerpt.'... <a href="'.get_permalink($post->ID).'">more</a>';
-    return $excerpt;
-}
-*/
 
 function twentysixteen_child_wp_trim_words( $text, $num_words = 55, $more = null ) {
     if ( null === $more ) {
@@ -330,3 +265,77 @@ function sf_create_responsive_image( $img ) {
 	return '<img src="' . $img . '" srcset="' . esc_attr( $img_srcset ) . '" sizes="' . esc_attr( $img_sizes ) . '">';
 }
 add_action('sf_responsive_img', 'sf_create_responsive_image');
+
+
+/* SF: WP Query modification */
+
+function twentysixteen_child_gdd_wp_custom_query( $query ) {
+	
+	// remove post pagination
+    if ( $query->is_main_query() &&  get_query_var( 'onepageprint', 0 ) ) {
+        $query->query_vars['nopaging'] = 1;
+        $query->query_vars['posts_per_page'] = -1;
+    }
+}
+add_action( 'pre_get_posts', 'twentysixteen_child_gdd_wp_custom_query' );
+
+
+/* SF: WP Rocket Lazyload options */
+
+add_action( 'wp', 'deactivate_rocket_lazyload_on_single' );
+function deactivate_rocket_lazyload_on_single() {
+    if ( is_single() ) {
+        add_filter( 'do_rocket_lazyload', '__return_false' );
+    }
+}
+
+function rocket_lazyload_custom_threshold( $threshold ) {
+    return 250;
+}
+add_filter( 'rocket_lazyload_threshold', 'rocket_lazyload_custom_threshold' );
+
+
+
+/** SF:
+ * Get Custom Field Values: File List
+ */
+function gdd_get_gallery_images( $file_list_meta_key, $class, $img_size = '' ) {
+
+	$image_wrapper_class = 'gdd-image-container';
+	
+	// Get the list of files
+	$files = get_post_meta( get_the_ID(), $file_list_meta_key, 1 );
+	
+	//wrapper opening tag 
+	echo '<div class="' . $image_wrapper_class . '">';
+	// Loop through them and output an image
+	foreach ( (array) $files as $attachment_id => $attachment_url ) {
+		echo '<div class="' . $class . '">';
+		echo wp_get_attachment_image( $attachment_id, $img_size );
+		echo '</div><!-- .' . $class . ' -->';
+	}
+	
+	//wrapper closing tag 
+	echo '</div><!-- .' . $image_wrapper_class . ' -->';
+}
+add_filter( 'gdd_custom_fields', 'gdd_get_gallery_images' );
+
+
+
+/** SF:
+ * remove links from texts
+ */
+function gdd_remove_links( $html ) {
+	
+    return $result = preg_replace(
+		'%\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))%s', // filter out www addresses from the excerpt
+        ' ',
+        $html
+    );
+}
+add_action( 'gdd_text_modification', 'gdd_remove_links' );
+/*
+remove_filter('get_the_excerpt', 'wp_trim_excerpt');
+add_filter('get_the_excerpt', 'remove_links');
+*/
+
