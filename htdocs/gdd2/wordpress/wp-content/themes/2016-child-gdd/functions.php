@@ -1,4 +1,9 @@
-<?php 
+<?php
+/*
+update_option( 'siteurl', 'http://davidglaettli.jp' );
+update_option( 'home', 'http://davidglaettli.jp' );
+*/
+
 
 /*
 *
@@ -25,7 +30,7 @@
 function twentysixteen_child_gdd_scripts() {
 	
 	//SF: load pace.js for page loading progress UI (in Header)
-	wp_enqueue_script( 'page-loading-ui-js', get_stylesheet_directory_uri() . '/js/pace.js', array(), '', false );
+//	wp_enqueue_script( 'page-loading-ui-js', get_stylesheet_directory_uri() . '/js/pace.js', array(), '', false );
 	wp_enqueue_style( 'page-loading-ui-css', get_stylesheet_directory_uri() . '/css/page-loading-ui.css' );	
 	
 	wp_enqueue_script( 'top-anchor-js', get_stylesheet_directory_uri() . '/js/top-anchor.js', array('jquery'), true );
@@ -281,14 +286,14 @@ add_action( 'pre_get_posts', 'twentysixteen_child_gdd_wp_custom_query' );
 
 
 /* SF: WP Rocket Lazyload options */
-
+/*
 add_action( 'wp', 'deactivate_rocket_lazyload_on_single' );
 function deactivate_rocket_lazyload_on_single() {
     if ( is_single() ) {
         add_filter( 'do_rocket_lazyload', '__return_false' );
     }
 }
-
+*/
 function rocket_lazyload_custom_threshold( $threshold ) {
     return 250;
 }

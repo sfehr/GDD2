@@ -13,12 +13,14 @@ jQuery(function($) {
 //		this.index = index;
 		this.sizes = sizes;
 		this.imageTag = function( prefix = '', suffix = '' ) {
-			return prefix + '<img src="'+ this.src +'" srcset="'+ this.srcset +'" sizes="(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 1362px) 62vw, 840px">' + suffix ;
+//			return prefix + '<img src="'+ this.src +'" srcset="'+ this.srcset +'" sizes="(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 1362px) 62vw, 840px">' + suffix ;
+			return prefix + '<img src="'+ this.src +'" srcset="'+ this.srcset +'">' + suffix ;
 		};
 	}
 	
 
-	// INITIALIZER ON LOAD
+	// INITIALIZER ON LOAD: displayes only one slide at once
+	/*
 	$( document ).on('ready', function() {
 		
 		var gallery_images = $( selector_container ).find( selector_image );
@@ -35,7 +37,7 @@ jQuery(function($) {
 		});		
 		
 	});		
-
+	*/
 	
 	// INITIALIZER LIGHT BOX (ON CLICK)
 	$( selector_image ).on('click', function() {

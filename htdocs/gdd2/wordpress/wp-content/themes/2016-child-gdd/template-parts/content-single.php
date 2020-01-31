@@ -25,7 +25,7 @@
         //You can now loop through the image to display them as required
         foreach( $featured_images as $image ) {
 			
-			echo '<div class="post-thumbnail">' . sf_create_responsive_image( $image['full'] ) . '</div>';
+			echo '<div class="post-thumbnail">' . sf_create_responsive_image( $image['large'] ) . '</div>';
         }
      }
      ?>

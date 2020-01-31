@@ -38,15 +38,25 @@
 		
 				
 			/* translators: %s: Name of current post */
-			echo gdd_remove_links( wp_strip_all_tags( get_the_content() ) );
-//			 echo strip_shortcodes( twentysixteen_child_wp_trim_words( get_the_content(), 500, ' ...' ) );
-//			 echo '<br /><span class="translation">' . twentysixteen_child_wp_trim_words( twentysixteen_child_gdd_translation(), 300, ' ...' ) . '</span>';		
-	
+
+			$lang = ( function_exists( 'pll_current_language' ) ) ? pll_current_language() : 'en';
+			
+			if( $lang == 'en' ) {
+				$content = strip_shortcodes( twentysixteen_child_wp_trim_words( get_the_content(), 700, ' ...' ) );
+			}
+			else{
+				$content = strip_shortcodes( twentysixteen_child_wp_trim_words( get_the_content(), 500, ' ...' ) );
+			}
+			
+			echo gdd_remove_links( $content );
+
+			
+//			echo gdd_remove_links( wp_strip_all_tags( get_the_content() ) );
+			
+//			echo strip_shortcodes( twentysixteen_child_wp_trim_words( get_the_content(), 500, ' ...' ) );
+//			echo '<br /><span class="translation">' . twentysixteen_child_wp_trim_words( twentysixteen_child_gdd_translation(), 300, ' ...' ) . '</span>';		
 			// echo get_excerpt(140, 'content'); //excerpt is grabbed from get_the_content
 			// echo get_excerpt(140, 'translation');
-			
-			// echo mb_strimwidth(get_the_content(), 0, 50, '...');
-			// echo mb_strimwidth(twentysixteen_child_gdd_translation(), 0, 50, '...');
 			
 			
 		//	echo twentysixteen_child_gdd_translation();			

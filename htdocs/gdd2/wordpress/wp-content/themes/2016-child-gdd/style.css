@@ -63,6 +63,7 @@ Basic Styling
 
 body{
 	background-color: white;
+	touch-action: manipulation;
 }	
 
 body, *{
@@ -478,11 +479,15 @@ Lightbox for WP native image gallery
 	display:flex;
 	justify-content:center;
 	align-items:center;
+	flex-direction: column;
 }
 
-.lightbox-container img{	
-	max-height: 100%;
-/*    max-width: 100%; */
+.lightbox-slide img{
+	align-self: center;
+/*	flex: 1 0 auto; 
+	max-height: 80vw; */
+	max-width: 80vw;
+	height: auto;
 }
 
 .invisible{
@@ -596,6 +601,23 @@ img.lazyloaded,
 img.lazy-loaded
 {
 	opacity: 1;
+}
+
+
+/* -------------------------------- 
+
+Grid Enhancement
+
+-------------------------------- */
+
+@supports (display: grid) {
+	
+	.gdd-image-container{
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr) );
+		grid-gap: 15px;
+	}
+
 }
 
 
@@ -786,7 +808,7 @@ Media Queries
 	
 	button.btn-close{
 		right: 0px;
-	}		
+	}
 	
 }
 
